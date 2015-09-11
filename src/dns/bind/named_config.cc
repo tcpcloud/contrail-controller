@@ -265,8 +265,10 @@ void NamedConfig::WriteViewConfig(const VirtualDnsConfig *updated_vdns) {
         for (unsigned int i = 0; i < zones.size(); i++) {
             WriteZone(view_name, zones[i], true);
             // update the zone view map, to be used to generate default view
-            if (curr_vdns->IsExternalVisible())
-                zone_view_map.insert(ZoneViewPair(zones[i], view_name));
+            // if (curr_vdns->IsExternalVisible())
+            // TODO: hack to always update default zone to keep the behavior
+            // as it was in R2.1
+            zone_view_map.insert(ZoneViewPair(zones[i], view_name));
         }
 
         file_ << "};" << endl << endl;
