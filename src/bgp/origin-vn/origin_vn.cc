@@ -98,7 +98,7 @@ OriginVn OriginVn::FromString(const string &str,
 as_t OriginVn::as_number() const {
     uint8_t data[OriginVn::kSize];
     copy(data_.begin(), data_.end(), &data[0]);
-    if (data[0] == 0x80 && data[1] == 0x71) {
+    if (data_[0] == 0x80 && data_[1] == 0x71) {
         as_t as_number = get_value(data + 2, 2);
         return as_number;
     }
@@ -108,7 +108,7 @@ as_t OriginVn::as_number() const {
 int OriginVn::vn_index() const {
     uint8_t data[OriginVn::kSize];
     copy(data_.begin(), data_.end(), &data[0]);
-    if (data[0] == 0x80 && data[1] == 0x71) {
+    if (data_[0] == 0x80 && data_[1] == 0x71) {
         int vn_index = get_value(data + 4, 4);
         return vn_index;
     }
