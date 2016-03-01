@@ -2,6 +2,8 @@
  * Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
  */
 
+#pragma GCC diagnostic ignored "-Wuninitialized"
+
 #ifndef ctrlplane_parse_object_h
 #define ctrlplane_parse_object_h
 #include <stdint.h>

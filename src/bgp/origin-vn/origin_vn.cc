@@ -2,6 +2,8 @@
  * Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
  */
 
+#pragma GCC diagnostic ignored "-Wuninitialized"
+
 #include "bgp/origin-vn/origin_vn.h"
 
 #include <stdio.h>
