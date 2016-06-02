@@ -318,6 +318,7 @@ subdirs = [
     'vgw',
     'vrouter',
     'nexthop_server',
+    'tcpdump',
 ]
 
 AgentUveDocFiles = []
