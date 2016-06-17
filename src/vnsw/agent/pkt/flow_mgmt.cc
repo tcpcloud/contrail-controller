@@ -14,8 +14,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // FlowMgmtManager methods
 /////////////////////////////////////////////////////////////////////////////
-FlowMgmtManager::FlowMgmtManager(Agent *agent) :
+FlowMgmtManager::FlowMgmtManager(Agent *agent, uint16_t table_index) :
     agent_(agent),
+    table_index_(table_index),
     acl_flow_mgmt_tree_(this),
     interface_flow_mgmt_tree_(this),
     vn_flow_mgmt_tree_(this),
@@ -206,7 +207,8 @@ void FlowMgmtManager::DBEntryEvent(FlowEvent::Event event, FlowMgmtKey *key,
 
 void FlowMgmtManager::FreeDBEntryEvent(FlowEvent::Event event, FlowMgmtKey *key,
                                        uint32_t gen_id) {
-    FlowEvent *flow_resp = new FlowEvent(event, key->db_entry(), gen_id);
+    FlowEvent *flow_resp = new FlowEvent(event, table_index_, key->db_entry(),
+                                         gen_id);
     EnqueueFlowEvent(flow_resp);
 }
 
@@ -1365,13 +1367,11 @@ void VnFlowMgmtTree::VnFlowCounters(const VnEntry *vn,
                                     uint32_t *ingress_flow_count,
                                     uint32_t *egress_flow_count) {
     tbb::mutex::scoped_lock mutex(mutex_);
-    *ingress_flow_count = 0;
-    *egress_flow_count = 0;
     VnFlowMgmtKey key(vn);
     VnFlowMgmtEntry *entry = static_cast<VnFlowMgmtEntry *>(Find(&key));
     if (entry) {
-        *ingress_flow_count = entry->ingress_flow_count();
-        *egress_flow_count = entry->egress_flow_count();
+        *ingress_flow_count += entry->ingress_flow_count();
+        *egress_flow_count += entry->egress_flow_count();
     }
 }
 
