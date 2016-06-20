@@ -216,7 +216,7 @@ class DBInterface(object):
                 resource='security_group_rule', msg=str(e))
         except OverQuota as e:
             self._raise_contrail_exception('OverQuota',
-                resource='security_group_rule', msg=str(e))
+                overs=['security_group_rule'], msg=str(e))
         except RefsExistError as e:
             try:
                 rule_uuid = str(e).split(':')[1].strip()
@@ -298,7 +298,7 @@ class DBInterface(object):
                 resource=resource_type, msg=str(e))
         except OverQuota as e:
             self._raise_contrail_exception('OverQuota',
-                resource=resource_type, msg=str(e))
+                overs=[resource_type], msg=str(e))
         return obj_uuid
     #end _resource_create
 
@@ -3386,7 +3386,7 @@ class DBInterface(object):
             fip_uuid = self._vnc_lib.floating_ip_create(fip_obj)
         except OverQuota as e:
             self._raise_contrail_exception('OverQuota',
-                resource='floatingip', msg=str(e))
+                overs=['floatingip'], msg=str(e))
         except Exception as e:
             self._raise_contrail_exception('IpAddressGenerationFailure',
                                            net_id=fip_q['floating_network_id'])
