@@ -2,7 +2,7 @@
 import platform
 import sys
 
-vpath = '#/third_party/bind-9.10.4-P3/'
+vpath = '#/third_party/bind-9.10.4-P4/'
 env = DefaultEnvironment()
 
 build_dir = str(Dir('#/build'))
