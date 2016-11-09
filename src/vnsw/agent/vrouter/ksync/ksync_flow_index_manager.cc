@@ -26,6 +26,8 @@ KSyncFlowIndexManager::KSyncFlowIndexManager(KSync *ksync) :
 }
 
 KSyncFlowIndexManager::~KSyncFlowIndexManager() {
+    if (count_ > 0)
+        delete [] index_list_;
 }
 
 void KSyncFlowIndexManager::InitDone(uint32_t count) {
@@ -35,9 +37,7 @@ void KSyncFlowIndexManager::InitDone(uint32_t count) {
        allowed all assgnment operations must be fixed. As a temporary
        workaround static array could be used instead. Lazy shallow-copy
        model also can't be used so deep copy is required. */
-    struct IndexEntry *idx = new struct IndexEntry;
-    for (uint32_t i=0; i < count; i++)
-        memcpy(&index_list_[i], idx, sizeof(struct IndexEntry));
+    *index_list_ = new struct IndexEntry[count_]
     sm_log_count_ = ksync_->agent()->params()->flow_index_sm_log_count();
 }
 
