@@ -33,11 +33,7 @@ KSyncFlowIndexManager::~KSyncFlowIndexManager() {
 void KSyncFlowIndexManager::InitDone(uint32_t count) {
     proto_ = ksync_->agent()->pkt()->get_flow_proto();
     count_ = count;
-    /* Due to the fact that since Xenial for tbb::mutex operator '=' is not
-       allowed all assgnment operations must be fixed. As a temporary
-       workaround static array could be used instead. Lazy shallow-copy
-       model also can't be used so deep copy is required. */
-    *index_list_ = new struct IndexEntry[count_]
+    index_list_ = new struct IndexEntry[count_];
     sm_log_count_ = ksync_->agent()->params()->flow_index_sm_log_count();
 }
 
