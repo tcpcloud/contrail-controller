@@ -68,8 +68,7 @@ private:
     KSync *ksync_;
     FlowProto *proto_;
     uint32_t count_;
-    //IndexList index_list_;
-    struct IndexEntry index_list_[1 << 16];
+    struct IndexEntry *index_list_;
     uint16_t sm_log_count_;
 };
 
